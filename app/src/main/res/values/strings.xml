@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">BodyZone Gym</string>
+    <string-array name="gender">
+        <item>S/O</item>
+        <item>D/O</item>
+        <item>W/O</item>
+    </string-array>
+
+    <string-array name="program">
+        <item>Weight Lose</item>
+        <item>Weight Gain</item>
+        <item>Other</item>
+    </string-array>
+</resources>

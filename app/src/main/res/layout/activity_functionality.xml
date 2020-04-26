@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".Functionality">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewActiveClick"
+            android:text="View Active Customers"
+            tools:layout_editor_absoluteX="108dp"
+            tools:layout_editor_absoluteY="110dp" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewInactiveClick"
+            android:text="View Inactive Customers"
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="206dp" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="dayReminderClick"
+            android:text="Day Reminder" />
+
+        <Button
+            android:id="@+id/addPerson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addPersonClick"
+            android:text="Add New Person" />
+
+        <Button
+            android:id="@+id/viewPerson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewPersonClick"
+            android:text="View Person" />
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="logoutClick"
+            android:text="Log Out" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/backupView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:onClick="onBackupClick"
+                android:text="Backup" />
+
+            <Button
+                android:id="@+id/restoreView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:onClick="onRestoreClick"
+                android:text="Restore" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/activeMalesView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Active Males = "
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+            <TextView
+                android:id="@+id/activeFemalesView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Active Females = "
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+            <TextView
+                android:id="@+id/inactiveView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inactive Customers = "
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+            <TextView
+                android:id="@+id/collectedView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Collected = "
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+            <TextView
+                android:id="@+id/pendingView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pending = "
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
