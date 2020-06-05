@@ -102,7 +102,7 @@ public class Detail extends AppCompatActivity {
 
 
                 String nameCustomer = nameView.getText().toString();
-                String message = "Dear " + nameCustomer + ",\nYou have successfully deposited "+ amountfees +"/-" +"\nThanks,\nBodyZone Gym.";
+                String message = "Dear " + nameCustomer + ",\nYou have successfully deposited "+ amountfees +"/-" +"\nThanks,\nBody Fitness Zone";
                 if (phoneNumber.length() > 0 && message.length() > 0) {
                     sendSms(phoneNumber, message);
                 } else
@@ -356,7 +356,7 @@ public class Detail extends AppCompatActivity {
 
     public void onSendReminder(View v){
         String nameCustomer = nameView.getText().toString();
-        String message = "Dear " + nameCustomer + ",\nPlease accept this message as a soft reminder for the pending fees of this month."+ "\nThanks,\nBodyZone Gym.";
+        String message = "Dear " + nameCustomer + ",\nPlease accept this message as a soft reminder for the pending fees of this month."+ "\nThanks,\nBody Fitness Zone.";
         if (phoneNumber.length() > 0 && message.length() > 0) {
             sendSms(phoneNumber, message);
         } else

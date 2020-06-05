@@ -194,6 +194,11 @@ public class Functionality extends AppCompatActivity {
         startActivity(myInt);
     }
 
+    public void sendCommonMessageClick(View v){
+        Intent myInt = new Intent(getBaseContext(), SendCommonMessage.class);
+        startActivity(myInt);
+    }
+
     public void onBackupClick(View v){
         try {
 

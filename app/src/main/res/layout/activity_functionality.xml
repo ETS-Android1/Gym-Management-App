@@ -56,6 +56,13 @@
             android:text="View Person" />
 
         <Button
+            android:id="@+id/sendCommonMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sendCommonMessageClick"
+            android:text="Send Common Message" />
+
+        <Button
             android:id="@+id/button10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

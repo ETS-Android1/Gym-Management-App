@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SendCommonMessage">
+
+    <TextView
+        android:id="@+id/reasontextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reason:"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:id="@+id/reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/reasontextView"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/fromtextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="From:"
+        app:layout_constraintTop_toBottomOf="@+id/reason"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+    <EditText
+        android:id="@+id/fromdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:clickable="true"
+        android:editable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintTop_toBottomOf="@+id/fromtextView"
+        android:inputType="date" />
+
+    <TextView
+        android:id="@+id/totextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To:"
+        app:layout_constraintTop_toBottomOf="@+id/fromdate"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:id="@+id/todate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:clickable="true"
+        android:editable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintTop_toBottomOf="@+id/totextView"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/sendCommon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Send"
+        android:onClick="sendCommonMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todate" />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

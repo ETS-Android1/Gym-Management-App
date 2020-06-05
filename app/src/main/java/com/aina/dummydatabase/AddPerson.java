@@ -535,7 +535,7 @@ public class AddPerson extends AppCompatActivity {
         if (mode_operation.equals("insert")) {
             String phoneNo = phoneField.getText().toString();
             String nameCustomer = nameField.getText().toString();
-            String message = "Dear " + nameCustomer + ", Thank you for joining BodyZone Gym! Have a Happy and Healthy Life!";
+            String message = "Dear " + nameCustomer + ", Thank you for joining Body Fitness Zone! Have a Happy and Healthy Life!";
             if (phoneNo.length() > 0 && message.length() > 0) {
                 sendSms(phoneNo, message);
             } else
