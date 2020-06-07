@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class Functionality extends AppCompatActivity {
 
     TextView activeMale, activeFemale, total_inactive, feecollected, feepending;
     private static final int PERMISSION_REQUEST_CODE = 1;
+    Switch serviceSwitch;
     
 
     @Override
@@ -61,6 +64,9 @@ public class Functionality extends AppCompatActivity {
         total_inactive = (TextView)findViewById(R.id.inactiveView);
         feecollected = (TextView)findViewById(R.id.collectedView);
         feepending = (TextView)findViewById(R.id.pendingView);
+        serviceSwitch = (Switch) findViewById(R.id.serviceMessage);
+
+
 
         if (Build.VERSION.SDK_INT >= 23)
         {
@@ -74,6 +80,15 @@ public class Functionality extends AppCompatActivity {
                 requestPermission(); // Code for permission
             }
         }
+
+        serviceSwitch.setChecked(sharedpreferences.getBoolean("serviceMessage",false));
+
+        serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor mEditor2 = sharedpreferences.edit();
+                mEditor2.putBoolean("serviceMessage", isChecked).commit();
+            }
+        });
 
         prepareSpinner();
         fillDetails();

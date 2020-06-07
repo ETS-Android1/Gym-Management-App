@@ -66,6 +66,8 @@ public class AddPerson extends AppCompatActivity {
 
     String mode_operation = "insert";
 
+    Boolean isServiceMessage;
+
     String custIDUpdate = "";
 
     Spinner spinner1,spinner2;
@@ -80,6 +82,8 @@ public class AddPerson extends AppCompatActivity {
         profilepicView = (ImageView) findViewById(R.id.imageView3);
         profilepicView.setImageResource(R.drawable.ic_launcher_background);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        isServiceMessage = sharedpreferences.getBoolean("serviceMessage", false);
 
         nameField = (EditText) findViewById(R.id.nameText);
         phoneField = (EditText) findViewById(R.id.mobileText);
@@ -537,7 +541,13 @@ public class AddPerson extends AppCompatActivity {
             String nameCustomer = nameField.getText().toString();
             String message = "Dear " + nameCustomer + ", Thank you for joining Body Fitness Zone! Have a Happy and Healthy Life!";
             if (phoneNo.length() > 0 && message.length() > 0) {
-                sendSms(phoneNo, message);
+                if(isServiceMessage){
+                    SendMessage sendSM = new SendMessage();
+                    sendSM.execute(phoneNo, message);
+                }
+                else{
+                    sendSms(phoneNo, message);
+                }
             } else
                 Toast.makeText(getBaseContext(),
                         "Please enter both phone number and message.",

@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -51,6 +52,9 @@ public class Detail extends AppCompatActivity {
 
     String dtm_consider;
     EditText editText2;
+    Boolean isSeviceMessage;
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
 
 
     @Override
@@ -58,9 +62,10 @@ public class Detail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         custid= getIntent().getStringExtra("CUSTOMER_ID_Name");
-
         custDB=openOrCreateDatabase("CustomerDB", Context.MODE_PRIVATE, null);
         feeDB = openOrCreateDatabase("feesDB", Context.MODE_PRIVATE, null);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        isSeviceMessage = sharedpreferences.getBoolean("serviceMessage", false);
 
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
 
@@ -104,7 +109,13 @@ public class Detail extends AppCompatActivity {
                 String nameCustomer = nameView.getText().toString();
                 String message = "Dear " + nameCustomer + ",\nYou have successfully deposited "+ amountfees +"/-" +"\nThanks,\nBody Fitness Zone";
                 if (phoneNumber.length() > 0 && message.length() > 0) {
-                    sendSms(phoneNumber, message);
+                    if(isSeviceMessage){
+                        SendMessage sendSM = new SendMessage();
+                        sendSM.execute(phoneNumber, message);
+                    }
+                    else{
+                        sendSms(phoneNumber, message);
+                    }
                 } else
                     Toast.makeText(getBaseContext(),
                             "Please enter both phone number and message.",
@@ -358,7 +369,13 @@ public class Detail extends AppCompatActivity {
         String nameCustomer = nameView.getText().toString();
         String message = "Dear " + nameCustomer + ",\nPlease accept this message as a soft reminder for the pending fees of this month."+ "\nThanks,\nBody Fitness Zone.";
         if (phoneNumber.length() > 0 && message.length() > 0) {
-            sendSms(phoneNumber, message);
+            if(isSeviceMessage){
+                SendMessage sendSM = new SendMessage();
+                sendSM.execute(phoneNumber, message);
+            }
+            else{
+                sendSms(phoneNumber, message);
+            }
         } else
             Toast.makeText(getBaseContext(),
                     "Please enter both phone number and message.",

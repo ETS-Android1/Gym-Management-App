@@ -2,6 +2,7 @@ package com.aina.dummydatabase;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +20,9 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class SendCommonMessage extends AppCompatActivity {
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    Boolean isSeviceMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,16 +91,20 @@ public class SendCommonMessage extends AppCompatActivity {
             }
         });
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        isSeviceMessage = sharedpreferences.getBoolean("serviceMessage", false);
+
+
     }
 
     public void sendCommonMessage(View v){
         EditText reasonField = (EditText) findViewById(R.id.reason);
         EditText fromField = (EditText) findViewById(R.id.fromdate);
         EditText toField = (EditText) findViewById(R.id.todate);
-
         SQLiteDatabase mydb=openOrCreateDatabase("CustomerDB", Context.MODE_PRIVATE, null);
         String query_active = "SELECT name,mobile FROM customer WHERE activestat=1";
         Cursor c=mydb.rawQuery(query_active, null);
+
         while(c.moveToNext()) {
             String nameCustomer = c.getString(0);
             String phoneNumber = c.getString(1);
@@ -107,7 +116,15 @@ public class SendCommonMessage extends AppCompatActivity {
                 message = "Dear " + nameCustomer + ",\nDue to " + reasonField.getText().toString() +", gym will be closed from " + fromField.getText().toString() + " to " + toField.getText().toString() + ".\nSorry for the inconvenience :(\nThanks,\nBody Fitness Zone";
             }
             if (phoneNumber.length() > 0 && message.length() > 0) {
-                sendSms(phoneNumber, message);
+                Log.d("here","here");
+                if(isSeviceMessage){
+                    SendMessage sendSM = new SendMessage();
+                    sendSM.execute(phoneNumber, message);
+                }
+                else{
+                    sendSms(phoneNumber, message);
+                }
+
             } else
                 Toast.makeText(getBaseContext(),
                         "Please enter both phone number and message.",
