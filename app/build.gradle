@@ -27,5 +27,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //library for searchable spinner
-    implementation 'com.github.MdFarhanRaja:SearchableSpinner:1.2'
+    compile 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
 }

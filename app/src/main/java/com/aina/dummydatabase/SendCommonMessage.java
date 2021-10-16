@@ -99,22 +99,36 @@ public class SendCommonMessage extends AppCompatActivity {
 
     public void sendCommonMessage(View v){
         EditText reasonField = (EditText) findViewById(R.id.reason);
+        EditText customMessageField = (EditText) findViewById(R.id.custommessage);
         EditText fromField = (EditText) findViewById(R.id.fromdate);
         EditText toField = (EditText) findViewById(R.id.todate);
-        SQLiteDatabase mydb=openOrCreateDatabase("CustomerDB", Context.MODE_PRIVATE, null);
+        SQLiteDatabase mydb = openOrCreateDatabase("CustomerDB", Context.MODE_PRIVATE, null);
         String query_active = "SELECT name,mobile FROM customer WHERE activestat=1";
         Cursor c=mydb.rawQuery(query_active, null);
+
+        if ((customMessageField.getText().toString().length() > 0) && (reasonField.getText().toString().length() > 0)){
+            Toast.makeText(getBaseContext(),
+                    "Error: Either Reason or Custom Message should be empty",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         while(c.moveToNext()) {
             String nameCustomer = c.getString(0);
             String phoneNumber = c.getString(1);
             String message = null;
-            if (fromField.getText().toString().equals(toField.getText().toString())){
-                message = "Dear " + nameCustomer + ",\nDue to " + reasonField.getText().toString() +", gym will be closed on " + fromField.getText().toString() + ".\nSorry for the inconvenience :(\nThanks,\nBody Fitness Zone";
+            if (reasonField.getText().toString().length() > 0){
+                if (fromField.getText().toString().equals(toField.getText().toString())){
+                    message = "Dear " + nameCustomer + ",\nDue to " + reasonField.getText().toString() +", gym will be closed on " + fromField.getText().toString() + ".\nSorry for the inconvenience :(\nThanks,\nBody Fitness Zone";
+                }
+                else{
+                    message = "Dear " + nameCustomer + ",\nDue to " + reasonField.getText().toString() +", gym will be closed from " + fromField.getText().toString() + " to " + toField.getText().toString() + ".\nSorry for the inconvenience :(\nThanks,\nBody Fitness Zone";
+                }
             }
             else{
-                message = "Dear " + nameCustomer + ",\nDue to " + reasonField.getText().toString() +", gym will be closed from " + fromField.getText().toString() + " to " + toField.getText().toString() + ".\nSorry for the inconvenience :(\nThanks,\nBody Fitness Zone";
+                message = "Dear " + nameCustomer + ",\n" + customMessageField.getText().toString() + "\nThanks,\nBody Fitness Zone";
             }
+
             if (phoneNumber.length() > 0 && message.length() > 0) {
                 Log.d("here","here");
                 if(isSeviceMessage){
