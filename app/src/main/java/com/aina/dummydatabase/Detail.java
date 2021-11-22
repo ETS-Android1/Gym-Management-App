@@ -50,6 +50,8 @@ public class Detail extends AppCompatActivity {
     String fees;
     Switch activeStat;
 
+    Switch sendWA;
+
     String dtm_consider;
     EditText editText2;
     Boolean isSeviceMessage;
@@ -79,6 +81,8 @@ public class Detail extends AppCompatActivity {
         nameView = (TextView)findViewById(R.id.textView3);
         imgView = (ImageView) findViewById(R.id.imageView4);
         activeStat = (Switch) findViewById(R.id.switch1);
+        sendWA = (Switch) findViewById(R.id.switchWA);
+
         totalFeeView = (TextView) findViewById(R.id.totalFeePaid);
         dojView = (TextView) findViewById(R.id.dojView);
 
@@ -109,12 +113,17 @@ public class Detail extends AppCompatActivity {
                 String nameCustomer = nameView.getText().toString();
                 String message = "Dear " + nameCustomer + ",\nYou have successfully deposited "+ amountfees +"/-" +"\nThanks,\nBody Fitness Zone";
                 if (phoneNumber.length() > 0 && message.length() > 0) {
-                    if(isSeviceMessage){
-                        SendMessage sendSM = new SendMessage();
-                        sendSM.execute(phoneNumber, message);
+                    if (sendWA.isChecked()){
+                        sendWhatsappSms(phoneNumber, message);
                     }
                     else{
-                        sendSms(phoneNumber, message);
+                        if(isSeviceMessage){
+                            SendMessage sendSM = new SendMessage();
+                            sendSM.execute(phoneNumber, message);
+                        }
+                        else{
+                            sendSms(phoneNumber, message);
+                        }
                     }
                 } else
                     Toast.makeText(getBaseContext(),
@@ -369,12 +378,17 @@ public class Detail extends AppCompatActivity {
         String nameCustomer = nameView.getText().toString();
         String message = "Dear " + nameCustomer + ",\nPlease accept this message as a soft reminder for the pending fees of this month."+ "\nThanks,\nBody Fitness Zone.";
         if (phoneNumber.length() > 0 && message.length() > 0) {
-            if(isSeviceMessage){
-                SendMessage sendSM = new SendMessage();
-                sendSM.execute(phoneNumber, message);
+            if (sendWA.isChecked()){
+                sendWhatsappSms(phoneNumber, message);
             }
             else{
-                sendSms(phoneNumber, message);
+                if(isSeviceMessage){
+                    SendMessage sendSM = new SendMessage();
+                    sendSM.execute(phoneNumber, message);
+                }
+                else{
+                    sendSms(phoneNumber, message);
+                }
             }
         } else
             Toast.makeText(getBaseContext(),
@@ -413,6 +427,24 @@ public class Detail extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
                     Toast.LENGTH_LONG).show();
             ex.printStackTrace();
+        }
+    }
+
+    public void sendWhatsappSms(String phoneNo, String msg){
+        try {
+            String toNumber = "91";
+            if (phoneNo.length() >= 10) {
+                toNumber = toNumber + phoneNo.substring(phoneNo.length() - 10);
+            } else {
+                Toast.makeText(getApplicationContext(), "Invalid Number",
+                        Toast.LENGTH_LONG).show();
+            }
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+msg));
+            startActivity(intent);
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 
